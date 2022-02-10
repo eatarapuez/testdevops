@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
+        stage('build') {
             steps {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'aws-cli', passwordVariable: 'pass', usernameVariable: 'user')]) {
@@ -9,7 +9,11 @@ pipeline {
                         env.AWS_SECRET_ACCESS_KEY = "$pass"
                         env.AWS_DEFAULT_REGION = 'us-east-1'
                     }
-                    sh "git rev-parse HEAD"
+                    def version = sh(script: "git rev-parse --short HEAD", returnStdout: true)
+                    dir('coding'){
+                        sh "docker build -t testdevops ."
+                        sh "docker images"
+                    }
                     sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 119461359170.dkr.ecr.us-east-1.amazonaws.com"
                     //sh "aws ecr list-images --repository-name testdevops"
                 }
