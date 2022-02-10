@@ -10,12 +10,13 @@ pipeline {
                         env.AWS_DEFAULT_REGION = 'us-east-1'
                     }
                     def version = sh(script: "git rev-parse --short HEAD", returnStdout: true)
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 119461359170.dkr.ecr.us-east-1.amazonaws.com"
                     dir('coding'){
                         sh "docker build -t testdevops ."
-                        sh "docker images"
+                        sh "docker tag testdevops:latest 119461359170.dkr.ecr.us-east-1.amazonaws.com/testdevops:$version"
+                        sh "docker push 119461359170.dkr.ecr.us-east-1.amazonaws.com/testdevops:$version"
                     }
-                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 119461359170.dkr.ecr.us-east-1.amazonaws.com"
-                    //sh "aws ecr list-images --repository-name testdevops"
+                    sh "aws ecr list-images --repository-name testdevops"
                 }
             }
         }
