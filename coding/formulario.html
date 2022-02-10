@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/style-sheet.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso Hogar</title>
+</head>
+<body>
+        <table style="margin-top:20%; margin-left:70%;background-color:rgb(220, 216, 230);">
+            <th></th>
+            <th style="color: brown;">
+                <%= message %>
+            </th>
+            <form action="/" method="post">
+            <tr>
+                <th>Usuario:</th>
+                <th>
+                    <input type="text" id="user" name="user">
+                </th>            
+            </tr>
+            <tr>
+                <th>Contraseña:</th>
+                <th>
+                    <input type="password" id="pass" name="pass">
+                </th>            
+            </tr>
+            <th></th>
+                <th>
+                    <button type="submit" <%= boton %> >Ingresar</button>  
+                </th>            
+                <th></th>           
+            </tr>
+            </form>
+        </table>  
+</body>
+</html>

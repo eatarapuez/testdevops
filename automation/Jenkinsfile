@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'aws-cli', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                        env.AWS_ACCESS_KEY_ID = "$user"
+                        env.AWS_SECRET_ACCESS_KEY = "$pass"
+                        env.AWS_DEFAULT_REGION = 'us-east-1'
+                    }
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 119461359170.dkr.ecr.us-east-1.amazonaws.com"
+                    //sh "aws ecr list-images --repository-name testdevops"
+                }
+            }
+        }
+    }
+}
