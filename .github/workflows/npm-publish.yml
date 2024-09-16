@@ -7,7 +7,7 @@ on: push
 
 jobs:
   build:
-    runs-on: prueba-windows-runner
+    runs-on: casa
     steps:
       - run: ipconfig
 
